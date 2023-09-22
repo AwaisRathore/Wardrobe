@@ -69,8 +69,7 @@ class Filters extends BaseConfig
                 'User(/*)?',
                 'Roles(/*)?',
                 'Wardrobe(/*)?',
-                'Article(/*)?',
-                
+                'Article(/*)?'
             ],
         ],
         'guest' => [

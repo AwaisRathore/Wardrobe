@@ -101,7 +101,32 @@ Articles
         </div>
     </div><!--end col-->
 </div><!--end row-->
-
+<?php if (isset($clusterInfo['clusterUsers'])) : ?>
+    <div class="row my-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <!-- <h4 class="card-title">Cluster Information</h4> -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Cluster Id: <?= $clusterInfo['clusterUsers'][0]->ClusterId ?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($clusterInfo['clusterUsers'] as $user) : ?>
+                                <tr>
+                                    <td><?= $user->username ?> (<?= $user->email ?>)</td>
+                                </tr>
+                            <?php endforeach ?>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif ?>
 <?= $this->endSection() ?>
 <?= $this->section('pageJS'); ?>
 <!--datatable js-->
