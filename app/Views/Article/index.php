@@ -110,16 +110,36 @@ Articles
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Cluster Id: <?= $clusterInfo['clusterUsers'][0]->ClusterId ?></th>
+                                <th>
+                                    <h5>
+
+                                        Cluster Id: <?= $clusterInfo['clusterUsers'][0]->ClusterId ?>
+                                    </h5>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($clusterInfo['clusterUsers'] as $user) : ?>
                                 <tr>
-                                    <td><?= $user->username ?> (<?= $user->email ?>)</td>
+                                    <td class="fw-bold"><?= $user->username ?> (<?= $user->email ?>)</td>
+                                </tr>
+                                <!-- <tr><b>Articles:</b></tr> -->
+                                <tr>
+                                    <td>
+                                        <ol class="list-group">
+                                            <?php foreach ($clusterInfo['clusterArticles'] as $ar) : ?>
+                                                <?php if ($ar->WardrobeId == $user->WardrobeId) : ?>
+                                                    <li class="list-group-item d-flex justify-content-around align-items-center ">
+                                                        <?= $ar->BrandName ?> <?= $ar->Model ?>  
+                                                        <span > Size : <?= $ar->Size ?></span>
+                                                    </li>
+                                                <?php endif ?>
+                                            <?php endforeach ?>
+                                        </ol>
+                                    </td>
                                 </tr>
                             <?php endforeach ?>
-                            
+
                         </tbody>
                     </table>
                 </div>
@@ -170,7 +190,7 @@ Articles
                         method: 'get',
                         success: function(data) {
                             data = JSON.parse(data);
-                            
+
                             if (data) {
                                 Swal.fire({
                                     title: "Deleted!",

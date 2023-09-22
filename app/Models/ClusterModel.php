@@ -23,8 +23,10 @@ class ClusterModel extends Model
     public function getClusterArticlesByClusterId($clusterId)
     {
         $articleModel = new ArticleModel();
-        $clusterWardrobeIds = array_column($this->db->query("SELECT uc.WardrobeId FROM `user_clusters` uc WHERE uc.ClusterId = $clusterId;")->getResultObject(), 'WardrobeId');
-        return $articleModel->whereIn('WardrobeId', $clusterWardrobeIds)->findAll();
+        $clusterWardrobeIds = join(',', array_column($this->db->query("SELECT uc.WardrobeId FROM `user_clusters` uc WHERE uc.ClusterId = $clusterId;")->getResultObject(), 'WardrobeId'));
+        $sql = "SELECT a.*, b.Name as BrandName FROM `articles` a JOIN `brands` b ON a.Brand = b.Id WHERE a.WardrobeId in ($clusterWardrobeIds);";
+        return $this->db->query($sql)->getResultObject();
+        // return $articleModel->whereIn('WardrobeId', )->findAll();
     }
     
     public function getClusterIdByWardrobeId($wardrobeId)
