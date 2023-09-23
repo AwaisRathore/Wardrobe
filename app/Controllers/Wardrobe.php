@@ -27,7 +27,7 @@ class Wardrobe extends BaseController
             $requestData = new \App\Entities\Wardrobe($this->request->getPost());
             $requestData->UserId =  current_user()->Id;
             if ($this->wardrobeModel->insert($requestData)) {
-                return redirect()->to('wardrobe')->with('success', 'New Virtual Wardrobe created successfully.');
+                return redirect()->to('wardrobe/index')->with('success', 'New Virtual Wardrobe created successfully.');
             } else {
                 return redirect()->back()->with('error', 'An error occured.')->withInput()->with('errors', $this->wardrobeModel->errors());
             }

@@ -64,6 +64,7 @@ New Article
                                 <option>9</option>
                                 <option>10</option>
                                 <option>11</option>
+                                <option>12</option>
                             </select>
                             <span class="invalid-feedback text-danger">
                                 <?= dispalyErrorMessage('errors', 'Size') ?>
