@@ -48,7 +48,7 @@
                                  <a href="<?= site_url('wardrobe/new') ?>" class="nav-link" data-key="t-importFile">New Wardorbe</a>
                              </li>
                              <li class="nav-item">
-                                 <a href="<?= site_url('wardrobe') ?>" class="nav-link" data-key="t-addworker">Manage Wardrobes</a>
+                                 <a href="<?= site_url('wardrobe/index') ?>" class="nav-link" data-key="t-addworker">Manage Wardrobes</a>
                              </li>
 
                          </ul>
