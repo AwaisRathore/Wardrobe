@@ -31,7 +31,7 @@ class Article extends BaseController
         $data = [];
         if ($this->request->getMethod() == "post") {
             $requestData = new \App\Entities\Article($this->request->getPost());
-            if ($this->articleModel->insert($requestData)) {
+            if ($this->articleModel->addArticle($requestData)) {
                 return redirect()->to('article')->with('success', 'New Article added successfully.');
             } else {
                 return redirect()->back()->with('error', 'An error occured.')->withInput()->with('errors', $this->articleModel->errors());

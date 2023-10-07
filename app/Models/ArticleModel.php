@@ -26,85 +26,6 @@ class ArticleModel extends Model
         $sql = "SELECT a.*, b.Name as BrandName FROM `articles` a JOIN `brands` b ON a.Brand = b.Id WHERE a.WardrobeId = $wardrobeId;";
         return $this->db->query($sql)->getResultObject();
     }
-    // public function addArticle($article)
-    // {
-    //     //tackle new product added within a cluster 
-    //     //
-    //     $this->db->transStart();
-    //     $clusterModel = new ClusterModel();
-    //     $articleModel = new ArticleModel();
-    //     $insertedArticleId = $this->insert($article, true);
-    //     $insertedArticleWardrobeId = $article->WardrobeId;
-    //     $insertedArticleBrandId = $article->Brand;
-    //     $insertedArticleSize = $article->Size;
-    //     $insertedArticleClusterId = $clusterModel->getClusterIdByWardrobeId($insertedArticleWardrobeId);
-
-
-    //     if ($insertedArticleClusterId != null) {
-    //         $clusterArticles = $clusterModel->getClusterArticlesByClusterId($insertedArticleClusterId);
-    //         $clusterArticlesBrands = array_column($clusterArticles, 'Brands');
-    //         if (in_array($insertedArticleBrandId, $clusterArticlesBrands)) {
-    //             foreach ($clusterArticles as $cArticle) {
-    //                 if ($cArticle->Brand == $insertedArticleBrandId) {
-    //                     if ($cArticle->Size != $insertedArticleSize) {
-    //                         $clusterModel->deleteUserFromCluster($insertedArticleClusterId, $article->WardrobeId);
-    //                         break;
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //         $clusters = $clusterModel->whereNotIn('')->findAll();
-    //         $isAddedToACluster = false;
-    //         foreach ($clusters as $cluster) {
-    //             $clusterInfo = $clusterModel->getClusterDataById($cluster->Id);
-    //             $clusterArticles = $clusterModel->getClusterArticlesByClusterId($cluster->Id);
-    //             $insertedWardrobeArticles = $articleModel->where('WardrobeId', $insertedArticleWardrobeId)->findAll();
-    //             foreach ($clusterArticles as $clsArticle) {
-    //                 foreach ($insertedWardrobeArticles as $wArticle) {
-    //                     if ($clsArticle->Brand == $wArticle->Brand) {
-    //                         if ($clsArticle->Size == $wArticle->Size) {
-    //                             $clusterModel->addNewUserToCluster($wArticle->WardrobeId, current_user()->Id, $cluster->Id);
-    //                             $isAddedToACluster = true;
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //         if (!$isAddedToACluster) {
-    //             $newClusterId =  $clusterModel->insert(['IsActive' => '1'], true);
-    //             $clusterModel->addNewUserToCluster($insertedArticleWardrobeId, current_user()->Id, $newClusterId);
-    //         }
-    //     } else {
-    //         $clusters = $clusterModel->where('IsActive', 1)->findAll();
-    //         if (count($clusters) > 0) {
-    //             $isAddedToACluster = false;
-    //             foreach ($clusters as $cluster) {
-    //                 $clusterInfo = $clusterModel->getClusterDataById($cluster->Id);
-    //                 $clusterArticles = $clusterModel->getClusterArticlesByClusterId($cluster->Id);
-    //                 foreach ($clusterArticles as $clsArticle) {
-    //                     if ($clsArticle->Brand == $insertedArticleBrandId) {
-    //                         if ($clsArticle->Size == $insertedArticleSize) {
-    //                             $clusterModel->addNewUserToCluster($insertedArticleWardrobeId, current_user()->Id, $cluster->Id);
-    //                             $isAddedToACluster = true;
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //             if (!$isAddedToACluster) {
-    //                 $newClusterId =  $clusterModel->insert(['IsActive' => '1'], true);
-    //                 $clusterModel->addNewUserToCluster($insertedArticleWardrobeId, current_user()->Id, $newClusterId);
-    //             }
-    //         } else {
-    //             $newClusterId =  $clusterModel->insert(['IsActive' => '1'], true);
-    //             $clusterModel->addNewUserToCluster($article->WardrobeId, current_user()->Id, $newClusterId);
-    //         }
-    //     }
-    //     $this->db->transComplete();
-    //     if ($this->db->transStatus() === false) {
-    //         return false;
-    //     }
-    //     return true;
-    // }
 
     public function addArticle($article)
     {
@@ -114,7 +35,6 @@ class ArticleModel extends Model
         $insertedArticleId = $this->insert($article, true);
         $insertedArticleWardrobeId = $article->WardrobeId;
         $insertedArticleClusterId = $clusterModel->getClusterIdByWardrobeId($insertedArticleWardrobeId);
-
         if ($insertedArticleClusterId) {
             $this->handleArticleInCluster($article, $insertedArticleClusterId, $clusterModel);
         } else {
