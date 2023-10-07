@@ -45,7 +45,6 @@ class Accounts extends BaseController
                     return redirect()->to("Dashboard");
                 }
             } else {
-                dd($userModel->errors());
                 return redirect()->back()
                     ->with('errors', $userModel->errors())
                     ->with("warning", "An error occured.")
@@ -104,9 +103,9 @@ class Accounts extends BaseController
         }
         return view('Accounts/forgotpassword', $data);
     }
-    public function resetPassword($token = null) 
+    public function resetPassword($token = null)
     {
-        if(!isset($token)) {
+        if (!isset($token)) {
             return redirect()->back()->with('errors', 'Please provide a valid token.');
         }
         $userModel = new UserModel();

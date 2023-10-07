@@ -14,6 +14,10 @@ class WardrobeModel extends Model
         'Title' => 'required',
         'UserId' => 'required',
     ];
+    public function getUserByWardrobeId($wardrobeId)
+    {
+        return $this->find($wardrobeId)->UserId;
+    }
     public function prepareClustersData($userid, $requestedBrand)
     {
         $articleModel = new ArticleModel();
